@@ -49,7 +49,14 @@ export class WebhookAdapter implements TimeTrackingAdapter {
       const req = lib.request(options, (res) => {
         let data = '';
         res.on('data', (chunk) => (data += chunk));
-        res.on('end', () => resolve(data));
+        res.on('end', () => {
+          const statusCode = res.statusCode ?? 0;
+          if (statusCode >= 200 && statusCode < 300) {
+            resolve(data);
+          } else {
+            reject(new Error(`HTTP ${statusCode}: ${data}`));
+          }
+        });
       });
       req.on('error', reject);
       req.write(body);

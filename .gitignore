@@ -3,3 +3,5 @@ out/
 *.vsix
 .vscode-test/
 dist/
+webview/*.js
+webview/*.js.map
