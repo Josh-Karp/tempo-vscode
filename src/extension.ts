@@ -37,12 +37,16 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
 
   // Re-create adapter when configuration changes
   context.subscriptions.push(
-    vscode.workspace.onDidChangeConfiguration(e => {
-      if (e.affectsConfiguration('tempo.adapter') ||
-          e.affectsConfiguration('tempo.webhook.url') ||
-          e.affectsConfiguration('tempo.webhook.token')) {
+    vscode.workspace.onDidChangeConfiguration((e) => {
+      if (
+        e.affectsConfiguration('tempo.adapter') ||
+        e.affectsConfiguration('tempo.webhook.url') ||
+        e.affectsConfiguration('tempo.webhook.token')
+      ) {
         // Note: adapter changes take effect after restart for simplicity
-        vscode.window.showInformationMessage('Tempo: Adapter configuration changed. Please reload the window to apply.');
+        vscode.window.showInformationMessage(
+          'Tempo: Adapter configuration changed. Please reload the window to apply.',
+        );
       }
     }),
   );

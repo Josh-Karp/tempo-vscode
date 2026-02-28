@@ -9,15 +9,15 @@ export class EntryRepository {
   }
 
   getById(id: string): TimeEntry | undefined {
-    return this.store.getEntries().find(e => e.id === id);
+    return this.store.getEntries().find((e) => e.id === id);
   }
 
   getUnsynced(): TimeEntry[] {
-    return this.store.getEntries().filter(e => !e.synced && e.endTime !== undefined);
+    return this.store.getEntries().filter((e) => !e.synced && e.endTime !== undefined);
   }
 
   getActive(): TimeEntry | undefined {
-    return this.store.getEntries().find(e => e.endTime === undefined);
+    return this.store.getEntries().find((e) => e.endTime === undefined);
   }
 
   async save(entry: TimeEntry): Promise<void> {

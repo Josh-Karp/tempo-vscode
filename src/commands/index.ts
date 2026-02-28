@@ -18,7 +18,7 @@ function formatCsvRow(entry: TimeEntry): string {
     entry.notes ?? '',
     (entry.tags ?? []).join(';'),
   ];
-  return fields.map(f => `"${f.replace(/"/g, '""')}"`).join(',');
+  return fields.map((f) => `"${f.replace(/"/g, '""')}"`).join(',');
 }
 
 export function registerCommands(
@@ -36,7 +36,9 @@ export function registerCommands(
       try {
         await timerService.start(input.taskName, input.customer, input.notes);
         statusBarItem.update();
-        vscode.window.showInformationMessage(`Tempo: Timer started for "${input.taskName}" (${input.customer})`);
+        vscode.window.showInformationMessage(
+          `Tempo: Timer started for "${input.taskName}" (${input.customer})`,
+        );
       } catch (err) {
         vscode.window.showErrorMessage(`Tempo: ${String(err)}`);
       }
@@ -46,7 +48,9 @@ export function registerCommands(
       const entry = await timerService.stop();
       statusBarItem.update();
       if (entry) {
-        vscode.window.showInformationMessage(`Tempo: Timer stopped. Duration: ${entry.duration !== undefined ? Math.round(entry.duration / 60000) + ' min' : 'unknown'}`);
+        vscode.window.showInformationMessage(
+          `Tempo: Timer stopped. Duration: ${entry.duration !== undefined ? Math.round(entry.duration / 60000) + ' min' : 'unknown'}`,
+        );
       } else {
         vscode.window.showWarningMessage('Tempo: No active timer to stop.');
       }
@@ -74,7 +78,8 @@ export function registerCommands(
         vscode.window.showWarningMessage('Tempo: No entries to export.');
         return;
       }
-      const header = '"id","customer","taskName","startTime","endTime","duration","synced","notes","tags"';
+      const header =
+        '"id","customer","taskName","startTime","endTime","duration","synced","notes","tags"';
       const rows = entries.map(formatCsvRow);
       const csv = [header, ...rows].join('\n');
 
@@ -85,7 +90,9 @@ export function registerCommands(
 
       if (uri) {
         await vscode.workspace.fs.writeFile(uri, Buffer.from(csv, 'utf-8'));
-        vscode.window.showInformationMessage(`Tempo: Exported ${entries.length} entries to ${uri.fsPath}`);
+        vscode.window.showInformationMessage(
+          `Tempo: Exported ${entries.length} entries to ${uri.fsPath}`,
+        );
       }
     }),
   );

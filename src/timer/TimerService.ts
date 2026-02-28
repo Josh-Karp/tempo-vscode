@@ -130,9 +130,10 @@ export class TimerService {
       return 0;
     }
     const startMs = new Date(this.state.activeEntry.startTime).getTime();
-    const now = this.state.status === 'paused' && this.pauseStart !== undefined
-      ? this.pauseStart
-      : Date.now();
+    const now =
+      this.state.status === 'paused' && this.pauseStart !== undefined
+        ? this.pauseStart
+        : Date.now();
     return now - startMs - this.pausedDuration;
   }
 }

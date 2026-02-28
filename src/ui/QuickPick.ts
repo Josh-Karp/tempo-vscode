@@ -7,13 +7,15 @@ export interface TimerStartInput {
   notes?: string;
 }
 
-export async function promptTimerStart(repository: EntryRepository): Promise<TimerStartInput | undefined> {
+export async function promptTimerStart(
+  repository: EntryRepository,
+): Promise<TimerStartInput | undefined> {
   // Step 1: Select or create customer
   const recentCustomers = repository.getRecentCustomers();
   const config = vscode.workspace.getConfiguration('tempo');
   const defaultCustomer = config.get<string>('defaultCustomer', '');
 
-  const customerItems: vscode.QuickPickItem[] = recentCustomers.map(c => ({ label: c }));
+  const customerItems: vscode.QuickPickItem[] = recentCustomers.map((c) => ({ label: c }));
   if (defaultCustomer && !recentCustomers.includes(defaultCustomer)) {
     customerItems.unshift({ label: defaultCustomer, description: '(default)' });
   }

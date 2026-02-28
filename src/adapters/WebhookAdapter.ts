@@ -6,7 +6,10 @@ import { TimeEntry } from '../timer/TimerState';
 export class WebhookAdapter implements TimeTrackingAdapter {
   name = 'webhook';
 
-  constructor(private readonly url: string, private readonly token: string) {}
+  constructor(
+    private readonly url: string,
+    private readonly token: string,
+  ) {}
 
   async sync(entry: TimeEntry): Promise<SyncResult> {
     try {
@@ -19,7 +22,7 @@ export class WebhookAdapter implements TimeTrackingAdapter {
   }
 
   async syncBatch(entries: TimeEntry[]): Promise<SyncResult[]> {
-    return Promise.all(entries.map(e => this.sync(e)));
+    return Promise.all(entries.map((e) => this.sync(e)));
   }
 
   async testConnection(): Promise<boolean> {

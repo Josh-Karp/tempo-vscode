@@ -1,5 +1,4 @@
 import * as vscode from 'vscode';
-import * as path from 'path';
 import { EntryRepository } from '../storage/EntryRepository';
 import { TimeEntry } from '../timer/TimerState';
 
@@ -11,9 +10,7 @@ function formatDuration(ms?: number): string {
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
-  return [hours, minutes, seconds]
-    .map(v => String(v).padStart(2, '0'))
-    .join(':');
+  return [hours, minutes, seconds].map((v) => String(v).padStart(2, '0')).join(':');
 }
 
 function escapeHtml(str: string): string {
@@ -28,15 +25,20 @@ function buildTableRows(entries: TimeEntry[]): string {
   if (entries.length === 0) {
     return `<tr><td colspan="5" class="empty">No time entries yet. Start a timer to begin!</td></tr>`;
   }
-  return [...entries].reverse().map(entry => `
+  return [...entries]
+    .reverse()
+    .map(
+      (entry) => `
     <tr>
       <td>${escapeHtml(new Date(entry.startTime).toLocaleDateString())}</td>
       <td>${escapeHtml(entry.customer)}</td>
       <td>${escapeHtml(entry.taskName)}</td>
       <td>${formatDuration(entry.duration)}</td>
-      <td><span class="badge ${entry.synced ? 'synced' : (entry.endTime ? 'unsynced' : 'active')}">${entry.synced ? 'Synced' : (entry.endTime ? 'Unsynced' : 'Active')}</span></td>
+      <td><span class="badge ${entry.synced ? 'synced' : entry.endTime ? 'unsynced' : 'active'}">${entry.synced ? 'Synced' : entry.endTime ? 'Unsynced' : 'Active'}</span></td>
     </tr>
-  `).join('');
+  `,
+    )
+    .join('');
 }
 
 export class HistoryPanel {
@@ -119,7 +121,7 @@ export class HistoryPanel {
   dispose(): void {
     HistoryPanel.currentPanel = undefined;
     this.panel.dispose();
-    this.disposables.forEach(d => d.dispose());
+    this.disposables.forEach((d) => d.dispose());
     this.disposables = [];
   }
 }

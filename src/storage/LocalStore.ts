@@ -12,7 +12,7 @@ export class LocalStore {
 
   async saveEntry(entry: TimeEntry): Promise<void> {
     const entries = this.getEntries();
-    const index = entries.findIndex(e => e.id === entry.id);
+    const index = entries.findIndex((e) => e.id === entry.id);
     if (index >= 0) {
       entries[index] = entry;
     } else {
@@ -22,7 +22,7 @@ export class LocalStore {
   }
 
   async deleteEntry(id: string): Promise<void> {
-    const entries = this.getEntries().filter(e => e.id !== id);
+    const entries = this.getEntries().filter((e) => e.id !== id);
     await this.context.globalState.update(ENTRIES_KEY, entries);
   }
 
