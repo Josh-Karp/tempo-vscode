@@ -1,0 +1,117 @@
+{
+  "name": "tempo-vscode",
+  "displayName": "Tempo — Time Tracker",
+  "description": "Track time against tasks and customers directly from VSCode",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "tempo.startTimer",
+        "title": "Tempo: Start Timer"
+      },
+      {
+        "command": "tempo.stopTimer",
+        "title": "Tempo: Stop Timer"
+      },
+      {
+        "command": "tempo.pauseTimer",
+        "title": "Tempo: Pause Timer"
+      },
+      {
+        "command": "tempo.resumeTimer",
+        "title": "Tempo: Resume Timer"
+      },
+      {
+        "command": "tempo.openHistory",
+        "title": "Tempo: Open History"
+      },
+      {
+        "command": "tempo.exportEntries",
+        "title": "Tempo: Export Entries"
+      }
+    ],
+    "configuration": {
+      "title": "Tempo",
+      "properties": {
+        "tempo.adapter": {
+          "type": "string",
+          "enum": [
+            "none",
+            "webhook"
+          ],
+          "default": "none",
+          "description": "Sync adapter to use"
+        },
+        "tempo.webhook.url": {
+          "type": "string",
+          "default": "",
+          "description": "Webhook URL for syncing entries"
+        },
+        "tempo.webhook.token": {
+          "type": "string",
+          "default": "",
+          "description": "Authentication token for webhook"
+        },
+        "tempo.autoSyncOnStop": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically sync entries when timer is stopped"
+        },
+        "tempo.idleTimeoutMinutes": {
+          "type": "number",
+          "default": 30,
+          "description": "Minutes of inactivity before prompting to stop timer"
+        },
+        "tempo.defaultCustomer": {
+          "type": "string",
+          "default": "",
+          "description": "Default customer name"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext .ts",
+    "format:check": "prettier --check \"src/**/*.ts\" \"webview/**/*.{ts,css,html}\"",
+    "format": "prettier --write \"src/**/*.ts\" \"webview/**/*.{ts,css,html}\"",
+    "test": "node ./out/test/runTest.js",
+    "test:unit": "jest",
+    "package": "vsce package"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "roots": ["<rootDir>/src/test/unit"],
+    "moduleNameMapper": {
+      "^vscode$": "<rootDir>/src/__mocks__/vscode.ts"
+    },
+    "testMatch": ["**/*.test.ts"],
+    "collectCoverageFrom": ["src/**/*.ts", "!src/test/**", "!src/__mocks__/**"]
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^25.3.2",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^8.56.1",
+    "@typescript-eslint/parser": "^8.56.1",
+    "@vscode/test-electron": "^2.3.8",
+    "esbuild": "^0.20.0",
+    "eslint": "^8.56.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.8.1",
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.3.3"
+  }
+}

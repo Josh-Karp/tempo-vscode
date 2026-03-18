@@ -1,0 +1,87 @@
+:root {
+  --tempo-bg: var(--vscode-editor-background);
+  --tempo-fg: var(--vscode-editor-foreground);
+  --tempo-border: var(--vscode-panel-border, #444);
+  --tempo-header-bg: var(--vscode-editorGroupHeader-tabsBackground);
+  --tempo-hover-bg: var(--vscode-list-hoverBackground);
+  --tempo-badge-synced: var(--vscode-terminal-ansiGreen, #4ec9b0);
+  --tempo-badge-unsynced: var(--vscode-terminal-ansiYellow, #dcdcaa);
+  --tempo-badge-active: var(--vscode-terminal-ansiBrightBlue, #4fc1ff);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--tempo-bg);
+  color: var(--tempo-fg);
+  font-family: var(--vscode-font-family);
+  font-size: var(--vscode-font-size);
+  padding: 16px 24px;
+  margin: 0;
+}
+
+h1 {
+  font-size: 1.4em;
+  font-weight: 600;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--tempo-border);
+  padding-bottom: 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead th {
+  text-align: left;
+  padding: 8px 12px;
+  background-color: var(--tempo-header-bg);
+  border-bottom: 2px solid var(--tempo-border);
+  font-weight: 600;
+  color: var(--vscode-foreground);
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--tempo-border);
+}
+
+tbody tr:hover {
+  background-color: var(--tempo-hover-bg);
+}
+
+tbody td {
+  padding: 8px 12px;
+  vertical-align: middle;
+}
+
+td.empty {
+  text-align: center;
+  color: var(--vscode-descriptionForeground);
+  padding: 24px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-weight: 500;
+}
+
+.badge.synced {
+  color: var(--tempo-badge-synced);
+  border: 1px solid var(--tempo-badge-synced);
+}
+
+.badge.unsynced {
+  color: var(--tempo-badge-unsynced);
+  border: 1px solid var(--tempo-badge-unsynced);
+}
+
+.badge.active {
+  color: var(--tempo-badge-active);
+  border: 1px solid var(--tempo-badge-active);
+}
